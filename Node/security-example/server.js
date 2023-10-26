@@ -32,6 +32,19 @@ function verifyCallback(accessToken, refreshToken, profile, done) {
 
 passport.use(new Strategy(AUTH_OPTIONS, verifyCallback));
 
+// Save to session to cookie
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+// Read the session from the cookie
+passport.deserializeUser((id, done) => {
+  // User.findById(id).then(user => {
+  //   done(null, user)
+  // })
+  done(null, id);
+});
+
 const app = express();
 
 // Helmet Middleware
@@ -49,9 +62,13 @@ app.use(
 // Passport must be under helmet because related to security
 app.use(passport.initialize());
 
+// Authenticate Session
+app.use(passport.session());
+
 // Authorization in Express
 function checkLoggedIn(req, res, next) {
-  const isLoggedIn = true;
+  console.log("Current user: ", req.user);
+  const isLoggedIn = req.isAuthenticated() && req.user;
   if (!isLoggedIn) {
     return res.status(401).json({
       error: "You must log in!",
@@ -67,14 +84,17 @@ app.get(
   passport.authenticate("google", {
     failureRedirect: "/failure",
     successRedirect: "/",
-    session: false,
+    session: true,
   }),
   (req, res) => {
     console.log("Google called us back!");
   }
 );
 
-app.get("/auth/logout", (req, res) => {});
+app.get("/auth/logout", (req, res) => {
+  req.logout(); // Removes req.user and clears session
+  return res.redirect("/");
+});
 
 app.get("/secret", checkLoggedIn, (req, res) => {
   return res.send("My secret data is Malatya");
