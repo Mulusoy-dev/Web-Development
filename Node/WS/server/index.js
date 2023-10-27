@@ -29,8 +29,31 @@ const io = new Server(expressServer, {
 io.on("connection", (socket) => {
   console.log(`User ${socket.id} connected`);
 
+  // socket.emit() => sadece aktif kullancıya mesaj gönderecek.
+  socket.emit("message", "Welcome to Chat App!");
+
+  // O anki kullanıcı hariç diğer tüm kullanıcılara gönderecek
+  socket.broadcast.emit(
+    "message",
+    `User ${socket.id.substring(0, 5)} connected`
+  );
+
+  // Gelen veriyi dinleme
   socket.on("message", (data) => {
     console.log(data);
     io.emit("message", `${socket.id.substring(0, 5)}: ${data}`); // emit() ile bu server'a bağlanan herkes bu mesajı görebilir.
+  });
+
+  // Kullanıcının herkesle bağlantısı koptuğunda
+  socket.on("disconnect", () => {
+    socket.broadcast.emit(
+      "message",
+      `User ${socket.id.substring(0, 5)} disconnected`
+    );
+  });
+
+  // Activity olayını dinleme
+  socket.on("activity", (name) => {
+    socket.broadcast.emit("activity", name);
   });
 });
