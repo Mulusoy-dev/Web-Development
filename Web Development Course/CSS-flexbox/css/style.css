@@ -1,0 +1,48 @@
+/* Tüm yapıyı kapsayan CSS özelliği için * kullanılır.  */
+/* * {
+  font-family: monospace;
+} */
+
+/* !important -> öncelik artırılır. Dikkatli kullanılmalı. */
+/* p {
+  color: black !important;
+} */
+
+/* rgba(red, green, blue, transparency) */
+/* p {
+  color: rgba(0, 0, 255, 0.7);
+} */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0.5rem;
+  font-size: 2rem;
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  color: red;
+}
+
+/* a:visited {
+  color: red;
+} */
+
+a:hover {
+  border: 1px solid black;
+}
+
+a:active {
+  background-color: yellow;
+}
+
+a:focus {
+  border: 2px double green;
+}
