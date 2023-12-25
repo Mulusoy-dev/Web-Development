@@ -1,17 +1,19 @@
 {
-  "name": "tut02",
+  "name": "tut03",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Express tutorial",
+  "main": "server.js",
   "scripts": {
     "start": "node server",
     "dev": "nodemon server"
   },
   "keywords": [],
-  "author": "",
+  "author": "Melo",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "date-fns": "^3.0.6",
+    "express": "^4.18.2",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
