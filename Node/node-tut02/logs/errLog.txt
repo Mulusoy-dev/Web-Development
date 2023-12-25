@@ -1,2 +1,3 @@
 20231225	02:20:59	a9437087-2c11-4a22-be25-b578ea89ba63	Error: Not allowed by CORS
 20231225	13:54:46	28d78e50-d3c4-4317-9334-40adcac230eb	TypeError: Assignment to constant variable.
+20231225	23:11:33	24bc3041-fc4e-4319-8baf-4b919df749b3	TypeError: data.employees is not a function
