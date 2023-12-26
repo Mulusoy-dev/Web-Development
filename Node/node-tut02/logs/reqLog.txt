@@ -220,3 +220,14 @@
 20231225	23:12:46	d1178c48-7d85-4192-bd41-da7fbca9d632	DELETE	undefined	/employees
 20231225	23:15:28	44e3e168-ff99-4bc0-8732-c01bdeca21ca	GET	undefined	/employees/2
 20231225	23:15:33	2d13047b-71e5-4f95-aab8-ac835008c6ef	GET	undefined	/employees/1
+20231226	09:36:15	4c0ec0e2-5056-4234-8ee3-8278068df169	GET	undefined	/
+20231226	09:36:15	633f1194-8fe5-4f18-8ce3-98a14ac077f8	GET	undefined	/css/style.css
+20231226	09:36:15	f3f1a6c3-131c-4698-97e7-a81eb8a8aef9	GET	undefined	/favicon.ico
+20231226	09:40:53	73e4d61f-158e-4898-8116-c6ce05d198a0	POST	undefined	/register
+20231226	09:41:43	cbad3e5f-348e-4975-8d32-63c1f0f9f960	POST	undefined	/register
+20231226	10:04:01	c2a1f139-9413-492d-8da2-ccd01bc470ab	GET	undefined	/
+20231226	10:04:01	0871d22f-eed5-4dc1-a074-14b2cbf7856f	GET	undefined	/css/style.css
+20231226	10:05:21	2b1330d1-1fef-48ee-a7b7-e1d283d3c5d5	POST	undefined	/auth
+20231226	10:05:28	0a389dc7-16d6-4155-b576-1bc1b73076e0	POST	undefined	/auth
+20231226	10:05:37	03699ec1-53fb-480b-86eb-60387ccee4b3	POST	undefined	/auth
+20231226	10:06:44	9820380d-0207-4a2f-a8e0-852497ccd339	POST	undefined	/register
