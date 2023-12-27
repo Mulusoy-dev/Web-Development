@@ -5,10 +5,16 @@ const cors = require("cors");
 const corsOptions = require("./config/corsOptions");
 const { logger } = require("./middleware/logEvents");
 const errorHandler = require("./middleware/errorHandler");
+const verifyJWT = require("./middleware/verifyJWT");
+const cookieParser = require("cookie-parser");
+const credentials = require("./middleware/credentials");
 const PORT = process.env.PORT || 3500;
 
 // custom middleware logger
 app.use(logger);
+
+// CORS'dan önce credentials (kimlik) kontrol et ve cookies(çerezleri) getir
+app.use(credentials);
 
 // Cross Origin Resource Sharing
 // origin: Bu, isteğin geldiği origin'i kontrol eden bir fonksiyonu içerir. Eğer isteğin origin'i whitelist içinde yer alıyorsa veya origin bilgisi yoksa (örneğin, isteği yapan bir yerel dosya sisteminden gelmişse), callback(null, true) çağrılarak istek kabul edilir. Aksi takdirde, callback(new Error("Not allowed by CORS")) çağrılarak hata ile sonuçlanan bir yanıt döndürülür.
@@ -25,6 +31,9 @@ app.use(express.urlencoded({ extended: false }));
 // İstemcilere JSON formatında veri göndermek ve istemcilerden JSON formatında veri almak için kullanılır.
 app.use(express.json());
 
+// authController tarafından gönderilen 'refreshToken' cookie olarak gönderildi. Burada cookie parser middleware tanımlanır.
+app.use(cookieParser());
+
 // serve static file
 // 'express.static' belirtilen dizindeki dosyaları tarayıcılara doğrudan sunabilen bir middleware'dir.
 // css dosyasına erişmek için -> 'http://localhost:3500/css/style.css'
@@ -34,6 +43,15 @@ app.use("/", express.static(path.join(__dirname, "/public")));
 app.use("/", require("./routes/root"));
 app.use("/register", require("./routes/register"));
 app.use("/auth", require("./routes/auth"));
+
+// RefreshToken
+app.use("/refresh", require("./routes/refresh"));
+
+// Logout
+app.use("/logout", require("./routes/logout"));
+
+// Tüm 'employees' yolunu JWT ile korumak için app.use(verifyJWT) kullanılır.
+// app.use(verifyJWT);
 app.use("/employees", require("./routes/api/employees"));
 
 // Middleware:

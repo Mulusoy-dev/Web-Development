@@ -58,6 +58,8 @@ const handleLogin = async (req, res) => {
       // 'jwt' -> çerez adı
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000,
+      sameSite: "None",
+      secure: true,
     }); // 1 gün geçerli
     res.json({ accessToken });
   } else {
