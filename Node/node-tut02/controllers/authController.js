@@ -26,9 +26,17 @@ const handleLogin = async (req, res) => {
   // evaluate password
   const match = await bcrypt.compare(pwd, foundUser.password);
   if (match) {
+    // Roles
+    const roles = Object.values(foundUser.roles);
     // create JWTs
     const accessToken = jwt.sign(
-      { username: foundUser.username }, // Payload -> JWT içinde taşınacak veri
+      {
+        UserInfo: {
+          username: foundUser.username, // Payload -> JWT içinde taşınacak veri
+          roles: roles,
+        },
+      },
+
       process.env.ACCESS_TOKEN_SECRET, // Secret Key -> JWT'nin imzalanması için kullanılan gizli anahtardır.
       { expiresIn: "30s" } // Options -> JWT geçerliliğini ve diğer ayarları belirten bir dizi seçenek içerir. (Burada, JWT 30s geçerlilik süresi olarak belirtilmiş.)
     );
