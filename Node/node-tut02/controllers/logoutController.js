@@ -1,12 +1,5 @@
-const usersDB = {
-  users: require("../model/users.json"),
-  setUsers: function (data) {
-    this.users = data;
-  },
-};
-
-const fsPromises = require("fs").promises;
-const path = require("path");
+// User model tanımlandı.
+const User = require("../model/User");
 
 const handleLogout = async (req, res) => {
   // Client (istemci) erişim(access) token frontend'den silinir. bu işlem backend de yapılamaz.
@@ -16,9 +9,7 @@ const handleLogout = async (req, res) => {
   const refreshToken = cookies.jwt;
 
   // Veri tabanında refrestToken'i bul
-  const foundUser = usersDB.users.find(
-    (person) => person.refreshToken === refreshToken
-  );
+  const foundUser = await User.findOne({ refreshToken }).exec();
   if (!foundUser) {
     // Kullancıyı bulamadı ama cookie silinmesi gerek.
     res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true });
@@ -26,15 +17,9 @@ const handleLogout = async (req, res) => {
   }
 
   // Veritabanında aradığımız refreshToken bulundu ve silinmesi lazım.
-  const otherUsers = usersDB.users.filter(
-    (person) => person.refreshToken !== foundUser.refreshToken
-  );
-  const currentUser = { ...foundUser, refreshToken: "" }; // refreshToken boş olarak ayarlandı.
-  usersDB.setUsers([...otherUsers, currentUser]);
-  await fsPromises.writeFile(
-    path.join(__dirname, "..", "model", "users.json"),
-    JSON.stringify(usersDB.users)
-  );
+  foundUser.refreshToken = "";
+  const result = await foundUser.save();
+  console.log(result);
 
   res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true });
   // Production -> Production'a verildiğinde 'secure:true' da eklenmeli.

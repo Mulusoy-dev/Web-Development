@@ -1,17 +1,9 @@
-const usersDB = {
-  users: require("../model/users.json"),
-  setUsers: function (data) {
-    this.users = data;
-  },
-};
-
+// User model tanımlandı.
+const User = require("../model/User");
 // bcrypt definition
 const bcrypt = require("bcrypt");
 // jwt definiton
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
-const fsPromises = require("fs").promises;
-const path = require("path");
 
 const handleLogin = async (req, res) => {
   const { user, pwd } = req.body;
@@ -20,7 +12,7 @@ const handleLogin = async (req, res) => {
       .status(400)
       .json({ message: "Username and password are required" });
 
-  const foundUser = usersDB.users.find((person) => person.username === user);
+  const foundUser = await User.findOne({ username: user }).exec();
   if (!foundUser) return res.sendStatus(401); // Unauthorized
 
   // evaluate password
@@ -47,15 +39,10 @@ const handleLogin = async (req, res) => {
     );
 
     // Aktif kullanıcı için refreshToken kaydetme
-    const otherUsers = usersDB.users.filter(
-      (person) => person.username !== foundUser.username
-    );
-    const currentUser = { ...foundUser, refreshToken };
-    usersDB.setUsers([...otherUsers, currentUser]);
-    await fsPromises.writeFile(
-      path.join(__dirname, "..", "model", "users.json"),
-      JSON.stringify(usersDB.users)
-    );
+    foundUser.refreshToken = refreshToken;
+    const result = await foundUser.save();
+    console.log(result);
+
     // İstemciye 'refreshToken' ve 'accessToken' gerekli işlemleri yapması için gönderilir.
     // accessToken istemciye gönderilen JSON formatı içinde yer alır. refreshToken bir HTTP çerezine (cookie) eklenir.
     // httpOnly: true özelliği sayesinde tarayıcı üzerinden çerezin okunmasını ve değiştirilmesini önler.
