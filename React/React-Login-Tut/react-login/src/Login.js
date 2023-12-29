@@ -1,6 +1,14 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
+import AuthContext from "./context/AuthProvider";
+
+import axios from "./api/axios";
+const LOGIN_URL = "/auth";
 
 const Login = () => {
+  // useContext hook'u kullanılarak AuthContext bağlamından setAuth fonksiyonunu çekmeyi sağlar.
+  // Bu bağlamdan setAuth fonksiyonunu çekerek, Login bileşeni içinde kullanabilirsiniz.
+  const { setAuth } = useContext(AuthContext);
+
   // Sayfa yüklendiğinde ik olarak input'a focus olmak için 'userRef' kullanıldı.
   // Bir hata olursa bu hataya odaklanmak için bir 'errRef' tanımlandı.
   const userRef = useRef();
@@ -23,10 +31,37 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(user, pwd);
-    setUser(""); // Kullanıcı alanını temizle
-    setPwd(""); // Parola alanını temizle
-    setSuccess(true);
+
+    // authentication işlemleri burada yapılacak.
+    try {
+      const response = await axios.post(
+        LOGIN_URL,
+        JSON.stringify({ user, pwd }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+      console.log(JSON.stringify(response?.data));
+      // console.log(JSON.stringify(response));
+      const accessToken = response?.data?.accessToken;
+      const roles = response?.data?.roles;
+      setAuth({ user, pwd, roles, accessToken });
+      setUser(""); // Kullanıcı alanını temizle
+      setPwd(""); // Parola alanını temizle
+      setSuccess(true);
+    } catch (err) {
+      if (!err?.response) {
+        setErrMsg("No Server Response");
+      } else if (err.response?.status === 400) {
+        setErrMsg("Missing Username or Password");
+      } else if (err.response?.status === 401) {
+        setErrMsg("Unauthorized");
+      } else {
+        setErrMsg("Login Failed");
+      }
+      errRef.current.focus();
+    }
   };
 
   return (

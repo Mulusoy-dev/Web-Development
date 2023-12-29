@@ -19,7 +19,7 @@ const handleLogin = async (req, res) => {
   const match = await bcrypt.compare(pwd, foundUser.password);
   if (match) {
     // Roles
-    const roles = Object.values(foundUser.roles);
+    const roles = Object.values(foundUser.roles).filter(Boolean);
     // create JWTs
     const accessToken = jwt.sign(
       {
@@ -42,7 +42,7 @@ const handleLogin = async (req, res) => {
     foundUser.refreshToken = refreshToken;
     const result = await foundUser.save();
     console.log(result);
-
+    console.log(roles);
     // İstemciye 'refreshToken' ve 'accessToken' gerekli işlemleri yapması için gönderilir.
     // accessToken istemciye gönderilen JSON formatı içinde yer alır. refreshToken bir HTTP çerezine (cookie) eklenir.
     // httpOnly: true özelliği sayesinde tarayıcı üzerinden çerezin okunmasını ve değiştirilmesini önler.
@@ -56,7 +56,7 @@ const handleLogin = async (req, res) => {
       sameSite: "None",
       secure: true,
     }); // 1 gün geçerli
-    res.json({ accessToken });
+    res.json({ roles, accessToken });
   } else {
     res.sendStatus(401); // Unauthorized
   }
