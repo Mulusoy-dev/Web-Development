@@ -5,34 +5,33 @@
 }
 
 html {
-  font-family: "Nunito", sans-serif;
-  font-size: 22px;
+  font-size: 20px;
   color: #fff;
 }
 
+/* body ve app sınıfına eklenen 'min-height:100vh' kod ile sayfanın ve .app elementinin görüntüleme alanı eşitlenmiş oldu. */
+/* Bu sayfanın boyutu ne olursa olsun, içerik ve .app elementinin ekranın tamamını kaplasmını sağlar.*/
 body {
-  min-height: 100vh;
-  background-color: dodgerblue;
+  background-color: #161a30;
+  min-height: 100vh; /* Minimum yükseklik 100vh olacak. Bu değerin altına düşemez. */
 }
 
-.App {
+.app {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  padding: 1rem 0.5rem;
+  min-height: 100vh; /* Minimum yükseklik 100vh olacak. Bu değerin altına düşemez. */
 }
 
 section {
   width: 100%;
-  max-width: 420px;
+  max-width: 500px;
   min-height: 400px;
   display: flex;
+  margin: auto;
   flex-direction: column;
-  justify-content: flex-start;
-  padding: 1rem;
-  background-color: rgba(0, 0, 0, 0.4);
+  padding: 2rem;
+  background-color: rgba(123, 211, 234, 0.3);
 }
 
 form {
@@ -52,10 +51,12 @@ input[type="text"],
 input[type="password"],
 button,
 textarea {
-  font-family: "Nunito", sans-serif;
-  font-size: 22px;
-  padding: 0.25rem;
-  border-radius: 0.5rem;
+  font-size: 20px;
+  padding: 12px;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  border-color: black;
+  border-width: 2px;
 }
 
 label,
