@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 const Unauthorized = () => {
   const navigate = useNavigate();
 
+  // Tarayıcı geçmişinde bir önceki sayfaya gitmesini sağlar.
+  // -1 değeri, bir önceki sayfaya gitmeyi temsil eder.
   const goBack = () => navigate(-1);
 
   return (

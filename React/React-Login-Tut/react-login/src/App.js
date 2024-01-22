@@ -10,6 +10,12 @@ import Lounge from "./components/Lounge";
 import Missing from "./components/Missing";
 import RequireAuth from "./components/RequireAuth";
 
+const ROLES = {
+  User: 2001,
+  Editor: 1984,
+  Admin: 5150,
+};
+
 function App() {
   return (
     <Routes>
@@ -21,12 +27,29 @@ function App() {
         <Route path="unauthorized" element={<Unauthorized />} />
 
         {/* We want to protect these routes */}
-        <Route element={<RequireAuth />}>
+
+        {/* Home is accessed by User[2001] */}
+        <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
           <Route path="/" element={<Home />} />
+        </Route>
+
+        {/* Editor is accessed by Editor[1984] */}
+        <Route element={<RequireAuth allowedRoles={[ROLES.Editor]} />}>
           <Route path="editor" element={<Editor />} />
+        </Route>
+
+        {/* Admin is accessed by Admin[5150] */}
+        <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
           <Route path="admin" element={<Admin />} />
+        </Route>
+
+        {/* Lounge is accessed by Editor[1984] and Admin[5150] */}
+        <Route
+          element={<RequireAuth allowedRoles={[ROLES.Editor, ROLES.Admin]} />}
+        >
           <Route path="lounge" element={<Lounge />} />
         </Route>
+
         {/* catch all */}
         <Route path="*" element={<Missing />} />
       </Route>
