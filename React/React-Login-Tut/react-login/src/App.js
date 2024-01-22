@@ -1,10 +1,34 @@
-import Login from "./Login";
+import { Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout";
+import Login from "./components/Login";
+import LinkPage from "./components/LinkPage";
+import Unauthorized from "./components/Unauthorized";
+import Home from "./components/Home";
+import Editor from "./components/Editor";
+import Admin from "./components/Admin";
+import Lounge from "./components/Lounge";
+import Missing from "./components/Missing";
 
 function App() {
   return (
-    <div>
-      <Login />
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        {/* Public routes */}
+        <Route path="login" element={<Login />} />
+        {/* <Route path="register" element={<Register />}/> */}
+        <Route path="linkpage" element={<LinkPage />} />
+        <Route path="unauthorized" element={<Unauthorized />} />
+
+        {/* We want to protect these routes */}
+        <Route path="/" element={<Home />} />
+        <Route path="editor" element={<Editor />} />
+        <Route path="admin" element={<Admin />} />
+        <Route path="lounge" element={<Lounge />} />
+
+        {/* catch all */}
+        <Route path="*" element={<Missing />} />
+      </Route>
+    </Routes>
   );
 }
 
