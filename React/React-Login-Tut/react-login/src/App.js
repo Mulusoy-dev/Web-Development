@@ -8,6 +8,7 @@ import Editor from "./components/Editor";
 import Admin from "./components/Admin";
 import Lounge from "./components/Lounge";
 import Missing from "./components/Missing";
+import RequireAuth from "./components/RequireAuth";
 
 function App() {
   return (
@@ -20,11 +21,12 @@ function App() {
         <Route path="unauthorized" element={<Unauthorized />} />
 
         {/* We want to protect these routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="editor" element={<Editor />} />
-        <Route path="admin" element={<Admin />} />
-        <Route path="lounge" element={<Lounge />} />
-
+        <Route element={<RequireAuth />}>
+          <Route path="/" element={<Home />} />
+          <Route path="editor" element={<Editor />} />
+          <Route path="admin" element={<Admin />} />
+          <Route path="lounge" element={<Lounge />} />
+        </Route>
         {/* catch all */}
         <Route path="*" element={<Missing />} />
       </Route>
