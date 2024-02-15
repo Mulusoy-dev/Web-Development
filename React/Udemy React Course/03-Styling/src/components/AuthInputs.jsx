@@ -1,68 +1,7 @@
 import { useState } from "react";
-import { styled } from "styled-components";
 
-import Button from "./Button.jsx";
-import Input from "./Input.jsx";
-
-const ControlContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-
-  & label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #6b7280;
-  }
-
-  & input {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    line-height: 1.5;
-    background-color: #d1d5db;
-    color: #374151;
-    border: 1px solid transparent;
-    border-radius: 0.25rem;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  }
-`;
-
-const AuthInputsContainer = styled.div`
-  width: 100%;
-  max-width: 28rem;
-  padding: 2rem;
-  margin: 0 auto;
-  border-radius: 0.5rem;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  background: linear-gradient(180deg, #474232 0%, #28271c 100%);
-  color: white;
-`;
-
-const ActionsContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-`;
-
-const TextButton = styled.button`
-  color: #f0b322;
-  border: none;
-  cursor: pointer;
-  background: none;
-  line-height: inherit;
-
-  &:hover {
-    color: #f0920e;
-  }
-  &:focus {
-    outline: none;
-  }
-`;
+import Button from "./Button";
+import Input from "./Input";
 
 export default function AuthInputs() {
   const [enteredEmail, setEnteredEmail] = useState("");
@@ -86,8 +25,11 @@ export default function AuthInputs() {
   console.log(emailNotValid, passwordNotValid);
 
   return (
-    <AuthInputsContainer>
-      <ControlContainer>
+    <div
+      id="auth-inputs"
+      className="w-full max-w-sm p-8 mx-auto rounded shadow-md bg-gradient-to-b from-stone-700 to-stone-800"
+    >
+      <div className="flex flex-col gap-2 mb-6 ">
         <Input
           label="Email"
           invalid={emailNotValid}
@@ -103,11 +45,13 @@ export default function AuthInputs() {
             handleInputChange("password", event.target.value)
           }
         />
-      </ControlContainer>
-      <ActionsContainer>
-        <TextButton type="button">Create a new account</TextButton>
+      </div>
+      <div className="flex justify-end gap-4">
+        <Button type="button" className="text-amber-400 hover:text-amber-500">
+          Create a new account
+        </Button>
         <Button onClick={handleLogin}>Sign In</Button>
-      </ActionsContainer>
-    </AuthInputsContainer>
+      </div>
+    </div>
   );
 }
