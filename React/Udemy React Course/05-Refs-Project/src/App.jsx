@@ -19,15 +19,26 @@ function App() {
     });
   };
 
+  const handleCloseAddProject = () => {
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        selectedProjectId: undefined,
+      };
+    });
+  };
+
   const handleAddProject = (projectData) => {
     setProjectsState((prevState) => {
+      const projectId = Math.random();
       const newProject = {
         ...projectData,
-        id: Math.random(),
+        id: projectId,
       };
 
       return {
         ...prevState,
+        selectedProjectId: undefined,
         projects: [...prevState.projects, newProject],
       };
     });
@@ -38,14 +49,19 @@ function App() {
   let content;
 
   if (projectsState.selectedProjectId === null) {
-    content = <NewProject onAdd={handleAddProject} />;
+    content = (
+      <NewProject onAdd={handleAddProject} onCancel={handleCloseAddProject} />
+    );
   } else if (projectsState.selectedProjectId === undefined) {
     content = <NoProjectSelected onStartAppProject={handleStartAppProject} />;
   }
 
   return (
     <main className="flex flex-row gap-8">
-      <Sidebar onStartAppProject={handleStartAppProject} />
+      <Sidebar
+        onStartAppProject={handleStartAppProject}
+        projects={projectsState.projects}
+      />
       {content}
     </main>
   );
