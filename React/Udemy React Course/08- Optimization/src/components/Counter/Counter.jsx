@@ -4,6 +4,7 @@ import IconButton from "../UI/IconButton.jsx";
 import MinusIcon from "../UI/Icons/MinusIcon.jsx";
 import PlusIcon from "../UI/Icons/PlusIcon.jsx";
 import CounterOutput from "./CounterOutput.jsx";
+import CounterHistory from "../Counter/CounterHistory.jsx";
 import { log } from "../../log.js";
 
 function isPrime(number) {
@@ -25,7 +26,10 @@ function isPrime(number) {
 
 const Counter = memo(function Counter({ initialCount }) {
   log("<Counter /> rendered", 1);
-  const initialCountIsPrime = useMemo(() => isPrime(initialCount), []);
+  const initialCountIsPrime = useMemo(
+    () => isPrime(initialCount),
+    [initialCount]
+  );
 
   const [counter, setCounter] = useState(initialCount);
 
@@ -52,6 +56,7 @@ const Counter = memo(function Counter({ initialCount }) {
           Increment
         </IconButton>
       </p>
+      {/* <CounterHistory history={counterChanges} /> */}
     </section>
   );
 });
