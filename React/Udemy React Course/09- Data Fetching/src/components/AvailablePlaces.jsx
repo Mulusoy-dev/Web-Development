@@ -4,7 +4,7 @@ import Error from "./Error.jsx";
 import { sortPlacesByDistance } from "../loc.js";
 
 export default function AvailablePlaces({ onSelectPlace }) {
-  const [AvailablePlaces, setAvailablePlaces] = useState([]);
+  const [availablePlaces, setAvailablePlaces] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState();
 
@@ -47,7 +47,7 @@ export default function AvailablePlaces({ onSelectPlace }) {
   return (
     <Places
       title="Available Places"
-      places={AvailablePlaces}
+      places={availablePlaces}
       isLoading={isFetching}
       loadingText="Fetching place data..."
       fallbackText="No places available."
