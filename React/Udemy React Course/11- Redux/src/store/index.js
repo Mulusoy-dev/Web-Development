@@ -13,6 +13,12 @@ const counterReducer = (state = { counter: 0 }, action) => {
     };
   }
 
+  if (action.type === "reset") {
+    return {
+      counter: 0,
+    };
+  }
+
   return state;
 };
 
