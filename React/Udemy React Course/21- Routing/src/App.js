@@ -7,12 +7,13 @@ import ProductDetailPage from "./pages/ProductDetail";
 
 const router = createBrowserRouter([
   // Absolute Path
+  // index:true means, default parent route definition
   {
     path: "/",
     element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [
-      { path: "/", element: <HomePage /> },
+      { index: true, path: "/", element: <HomePage /> },
       { path: "/products", element: <ProductsPage /> },
       { path: "/products/:productId", element: <ProductDetailPage /> },
     ],
