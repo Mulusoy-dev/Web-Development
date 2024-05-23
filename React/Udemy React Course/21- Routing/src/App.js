@@ -6,6 +6,7 @@ import ErrorPage from "./pages/Error";
 import ProductDetailPage from "./pages/ProductDetail";
 
 const router = createBrowserRouter([
+  // Absolute Path
   {
     path: "/",
     element: <RootLayout />,
@@ -16,6 +17,18 @@ const router = createBrowserRouter([
       { path: "/products/:productId", element: <ProductDetailPage /> },
     ],
   },
+
+  // Relative Path
+  // {
+  //   path: "/root",
+  //   element: <RootLayout />,
+  //   errorElement: <ErrorPage />,
+  //   children: [
+  //     { path: "", element: <HomePage /> },
+  //     { path: "products", element: <ProductsPage /> },
+  //     { path: "products/:productId", element: <ProductDetailPage /> },
+  //   ],
+  // },
 ]);
 
 function App() {
