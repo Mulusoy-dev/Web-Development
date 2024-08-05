@@ -1,0 +1,252 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  color: #fff;
+  width: 100%;
+  padding: 0px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%; /* Ensure content does not overflow */
+  height: 80%;
+  margin-top: 30px;
+}
+
+.info-landing {
+  width:50%;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  padding-left: 60px;
+}
+
+@keyframes dropDown {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.info-landing h1 {
+  font-size: 70px;
+  font-weight: bold;
+  animation: dropDown 1s ease-in-out; /* Add this line for the animation */
+
+}
+
+.typewriter {
+  margin-top: 5px;
+  font-size: 45px;
+  color: red;
+  font-weight: bold;
+  animation: minusHorizontalDrop 1s ease-in-out; /* Add this line for the animation */
+}
+
+@keyframes plusHorizontalDrop {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes minusHorizontalDrop {
+  0% {
+    transform: translateX(-30%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.swiper {
+  width: 50%;
+  height: 70%;
+  border-radius: 50px;
+  user-select: none;
+  animation: plusHorizontalDrop 1s ease;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  opacity: 0.92;
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#tsparticles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Ensure particles are in the background */
+}
+
+.scrollText {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+@keyframes dropUp {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.scrollDownBtn{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: dropUp 1s ease-in-out;
+}
+
+.arrows {
+  background-color: #fff;
+  opacity: 0.7;
+  border-radius: 25px; /* Adjusted for smaller size */
+  width: 40px; /* Adjusted for smaller size */
+  height: 62px; /* Adjusted for smaller size */
+  margin-bottom: 10px;
+  transition: 0.4s ease;
+  cursor: pointer;
+}
+
+.arrows:hover {
+  background-color: red;
+  transform: translateY(5px);
+}
+
+.arrows:hover path {
+  stroke: #fff;
+}
+
+.arrows path {
+  stroke: #000;
+  fill: transparent;
+  stroke-width: 2px;
+  animation: arrow 2s infinite;
+  -webkit-animation: arrow 2s infinite;
+
+}
+
+@keyframes arrow {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes arrow /* Safari and Chrome */ {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.arrows path.a1 {
+  animation-delay: -1s;
+  -webkit-animation-delay: -1s; /* Safari and Chrome */
+}
+
+.arrows path.a2 {
+  animation-delay: -0.5s;
+  -webkit-animation-delay: -0.5s; /* Safari and Chrome */
+}
+
+.arrows path.a3 {
+  animation-delay: 0s;
+  -webkit-animation-delay: 0s; /* Safari and Chrome */
+}
+
+/* On screens that are 992px or less, set the background color to blue */
+@media screen and (max-width: 1250px) {
+  .info-landing {
+    padding-left: 0px;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .content {
+    flex-direction: column;
+  }
+
+  .info-landing {
+    width: 80%;
+    margin-bottom: 20px;
+  }
+
+  .info-landing h1 {
+    font-size: 50px;
+  }
+
+  .typewriter {
+    font-size: 40px;
+  }
+
+  .swiper{
+    width: 80%;
+    height: 40%;
+    margin: 10px 0px;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .app{
+    padding: 0 20px;
+  }
+  
+  .info-landing h1 {
+    font-size: 35px;
+  }
+
+  .typewriter {
+    font-size: 25px;
+  }
+}
