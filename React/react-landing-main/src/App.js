@@ -1,13 +1,13 @@
 import React from "react";
-import "./app.css";
+import "./App.css";
 import { Typewriter } from "react-simple-typewriter";
 import ParticlesComponent from "./components/Particles";
 
 // import images
-import slider1 from './assets/images/slider1.webp'; 
-import slider2 from './assets/images/slider2.jpg'; 
-import slider3 from './assets/images/slider3.jpg'; 
-import slider4 from './assets/images/slider4.avif'; 
+import slider1 from "./assets/images/slider1.webp";
+import slider2 from "./assets/images/slider2.jpg";
+import slider3 from "./assets/images/slider3.jpg";
+import slider4 from "./assets/images/slider4.avif";
 
 // import Swiper core and required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
@@ -53,28 +53,16 @@ function App() {
           className="mySwiper"
         >
           <SwiperSlide>
-            <img
-              src= {slider1}
-              alt=""
-            />
+            <img src={slider1} alt="" />
           </SwiperSlide>
           <SwiperSlide>
-            <img
-              src= {slider2}
-              alt=""
-            />
+            <img src={slider2} alt="" />
           </SwiperSlide>
           <SwiperSlide>
-            <img
-              src= {slider3}
-              alt=""
-            />
+            <img src={slider3} alt="" />
           </SwiperSlide>
           <SwiperSlide>
-            <img
-              src= {slider4}
-              alt=""
-            />
+            <img src={slider4} alt="" />
           </SwiperSlide>
         </Swiper>
       </div>
