@@ -1,83 +1,37 @@
 const express = require("express");
 const { buildSchema } = require("graphql");
-const { graphqlHTTP } = require("express-graphql");
+const { createHandler } = require("graphql-http/lib/use/express");
 
+// GraphQL ID
+const { ruruHTML } = require("ruru/server");
+
+// To handle GraphQL queries, we need a schema that defines the Query type, and we need an API root with a function called a “resolver” for each API endpoint.
+// E-commerce API example
 const schema = buildSchema(`
     type Query {
-      products: [Product]   
-      orders: [Order]       
+    description: String
+    price: Float
     }
-
-    type Product {
-      id: ID!
-      description: String!
-      reviews: [Review]
-      price: Float!
-    }
-
-    type Review {
-      rating: Int
-      comment: String
-    }
-
-    type Order {
-      date: String!
-      subtotal: Float!
-      items: [OrderItem]
-    }
-
-    type OrderItem {
-      product: Product!
-      quantity: Int!
-    }
-`);
+  `);
 
 const root = {
-  products: [
-    {
-      id: "Protein Bar",
-      description: "Protein Bar Description",
-      price: 4,
-    },
-    {
-      id: "Jean,",
-      description: "Blue Jean",
-      price: 50,
-    },
-  ],
-
-  orders: [
-    {
-      date: "2024-05-25",
-      subtotal: 40,
-      items: [
-        {
-          product: {
-            id: "Protein Bar",
-            description: "Big Protein Bar",
-            price: 5,
-            reviews: [
-              {
-                rating: 5,
-                comment: "delicious bar",
-              },
-            ],
-          },
-          quantity: 10,
-        },
-      ],
-    },
-  ],
+  description: "T-shirt",
+  price: 30.99,
 };
 
 const app = express();
 
-app.use(
+app.get("/", (_req, res) => {
+  res.type("html");
+  res.end(ruruHTML({ endpoint: "/graphql" }));
+});
+
+// Create and use the GraphQL handler
+app.all(
   "/graphql",
-  graphqlHTTP({
+  createHandler({
     schema: schema,
     rootValue: root,
-    graphiql: true,
   })
 );
 
