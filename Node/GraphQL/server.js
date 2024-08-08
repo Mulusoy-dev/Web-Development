@@ -13,6 +13,20 @@ const { ruruHTML } = require("ruru/server");
 
 const schema = makeExecutableSchema({
   typeDefs: typesArray,
+  resolvers: {
+    Query: {
+      products: async (parent, args, context, info) => {
+        console.log("Getting the products...");
+        const product = await Promise.resolve(parent.products);
+        return product;
+      },
+      orders: async (parent, args, context, info) => {
+        console.log("Getting the orders...");
+        const order = await Promise.resolve(parent.orders);
+        return order;
+      },
+    },
+  },
 });
 
 const root = {
