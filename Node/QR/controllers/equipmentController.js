@@ -1,5 +1,7 @@
 const Equipment = require("../model/Equipment");
 
+const QRCode = require("qrcode");
+
 // Function Definitons
 
 // New Equipment Definitons
@@ -17,6 +19,9 @@ const createNewEquipment = async (req, res) => {
   }
 
   try {
+    const qrCodeData = `http://localhost:5000/api/equipment/${req.body.equipmentCode}`;
+    const qrCode = await QRCode.toDataURL(qrCodeData);
+
     const result = await Equipment.create({
       equipmentCode: req.body.equipmentCode,
       equipmentName: req.body.equipmentName,
@@ -33,6 +38,8 @@ const createNewEquipment = async (req, res) => {
       fault: req.body.fault,
       periodicMaintenanceLastDate: req.body.periodicMaintenanceLastDate,
       periodicMaintenanceFutureDate: req.body.periodicMaintenanceFutureDate,
+      qrCode: qrCode,
+      qrCodeData: qrCodeData,
     });
 
     console.log(`Equipment ${result} Created Successfully`);

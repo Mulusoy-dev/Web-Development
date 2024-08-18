@@ -52,6 +52,8 @@ const equipmentSchema = new Schema({
   periodicMaintenanceFutureDate: {
     type: Schema.Types.Mixed,
   },
+  qrCode: { type: String },
+  qrCodeData: { type: String },
 });
 
 module.exports = mongoose.model("Equipment", equipmentSchema);
