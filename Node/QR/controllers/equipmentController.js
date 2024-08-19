@@ -60,7 +60,8 @@ const allEquipments = async (req, res) => {
       return res.status(204).json({ message: "No equipment found." });
     }
 
-    return res.status(200).json(equipments);
+    const productCount = equipments.length;
+    return res.status(200).json({ equipments, productCount });
   } catch (err) {
     console.error(err);
     return res
