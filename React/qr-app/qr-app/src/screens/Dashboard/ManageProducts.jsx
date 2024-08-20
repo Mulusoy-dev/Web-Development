@@ -281,12 +281,12 @@ import Header from "../../components/Header";
 const ManageProducts = () => {
   const [products, setProducts] = useState([]);
 
+  const apiUrl = import.meta.env.VITE_PRODUCT_URL;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5000/api/equipment/equipments/getAll"
-        );
+        const response = await axios.get(apiUrl);
         setProducts(response.data.equipments);
         console.log(response.data.productCount);
       } catch (error) {
